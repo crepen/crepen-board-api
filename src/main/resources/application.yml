@@ -1,0 +1,18 @@
+server:
+  servlet:
+    context-path: /api
+
+
+spring:
+  application:
+    name: crepen-board-api
+  jackson:
+    # Controller JSON Return 시 null 항목 제거
+    default-property-inclusion: non_null
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2GB
+      max-request-size: 2GB
+
+
