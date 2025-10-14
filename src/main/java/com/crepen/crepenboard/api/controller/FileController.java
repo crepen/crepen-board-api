@@ -2,6 +2,8 @@ package com.crepen.crepenboard.api.controller;
 
 import com.crepen.crepenboard.api.common.CommonResponse;
 import com.crepen.crepenboard.api.service.FileService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+@Tag(name = "File Controller" , description = "File Control")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/file")
@@ -21,6 +24,7 @@ public class FileController {
     private final FileService fileService;
 
 
+    @Operation(summary = "Test")
     @GetMapping()
     public ResponseEntity<CommonResponse> test() {
         var ss = fileService.findAll();
