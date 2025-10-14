@@ -20,6 +20,7 @@ public class FileController {
 
     private final FileService fileService;
 
+
     @GetMapping()
     public ResponseEntity<CommonResponse> test() {
         var ss = fileService.findAll();
@@ -29,7 +30,12 @@ public class FileController {
     }
 
 
-    // Upload File
+    /**
+     * Upload File
+     *
+     * @param file Upload File Object
+     * @return Store File UUID
+     */
     @PostMapping("/upload")
     public ResponseEntity<CommonResponse> uploadFile(
             @RequestParam("file") MultipartFile file
