@@ -4,6 +4,11 @@ server:
 
 
 spring:
+  datasource:
+    url: [DBURL]
+    username: [DBUSNM]
+    password: [DBPW]
+    driver-class-name: org.mariadb.jdbc.Driver
   application:
     name: crepen-board-api
   jackson:
