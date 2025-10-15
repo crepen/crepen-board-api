@@ -1,15 +1,21 @@
 package com.crepen.crepenboard.api.config;
 
 
+import com.crepen.crepenboard.api.service.VersionService;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
 public class SwaggerConfig {
+    private final VersionService versionService;
+
     @Bean
     public OpenAPI setupSwagger(){
         // JWT 인증 설정을 위한 Security Scheme 정의
@@ -25,8 +31,8 @@ public class SwaggerConfig {
                                         .scheme("bearer")
                                         .bearerFormat("JWT")))
                 .info(new Info()
-                        .title("My Service REST API")
-                        .version("v1.0")
-                        .description("사용자 및 인증 관련 API 목록"));
+                        .title("Crepen Board API")
+                        .version(versionService.getAppVersionFromGradle())
+                );
     }
 }

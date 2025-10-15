@@ -1,6 +1,6 @@
 package com.crepen.crepenboard.api.service;
 
-import com.crepen.crepenboard.api.entity.FileEntity;
+import com.crepen.crepenboard.api.model.entity.FileEntity;
 import com.crepen.crepenboard.api.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

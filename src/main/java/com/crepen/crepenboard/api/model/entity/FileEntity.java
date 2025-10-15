@@ -1,4 +1,4 @@
-package com.crepen.crepenboard.api.entity;
+package com.crepen.crepenboard.api.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,6 +12,7 @@ import lombok.*;
 @Builder
 public class FileEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String uuid;
 
     @Column(nullable = false, unique = true , length = 200 , name = "file_name")

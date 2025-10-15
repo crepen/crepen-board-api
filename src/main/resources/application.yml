@@ -4,11 +4,11 @@ server:
 
 
 spring:
-#  datasource:
-#    url: [DBURL]
-#    username: [DBUSNM]
-#    password: [DBPW]
-#    driver-class-name: org.mariadb.jdbc.Driver
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name: org.mariadb.jdbc.Driver
   application:
     name: crepen-board-api
   jackson:
@@ -21,7 +21,7 @@ spring:
       max-request-size: 2GB
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -32,3 +32,5 @@ spring:
       enabled: ALWAYS
 
 
+jwt:
+  secret: 62a81afe948890cdecec70aff9872641

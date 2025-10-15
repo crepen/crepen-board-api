@@ -1,6 +1,6 @@
 package com.crepen.crepenboard.api.config;
 
-import com.crepen.crepenboard.api.config.filter.CommonExceptionFilter;
+import com.crepen.crepenboard.api.common.filter.CommonExceptionFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
