@@ -1,8 +1,6 @@
 server:
   servlet:
     context-path: /api
-
-
 spring:
   datasource:
     url:
@@ -22,7 +20,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
@@ -30,7 +28,16 @@ spring:
   output:
     ansi:
       enabled: ALWAYS
+  mandatory-file-encoding: UTF-8
 
 
 jwt:
-  secret: 62a81afe948890cdecec70aff9872641
+  secret: ENC(JP9FSCPHeYh3aKqsftRJsrKRORLiuu6ORdZninENh0M8W+P3uT4ZvMngiGnf2Fns5sbJde0PPAbLqwuKzIXjx8T07pIEF/40WuFYFkRAKKg=)
+
+jasypt:
+  encryptor:
+    password: ${JASYPT_SECRET_KEY}
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    pool-size: 2
+    iv-generator-class-name: org.jasypt.iv.RandomIvGenerator
+    salt-generator-class-name: org.jasypt.salt.RandomSaltGenerator

@@ -1,0 +1,11 @@
+package com.crepen.crepenboard.api.module.config.model;
+
+public enum SiteConfigKey {
+    PASSWORD_MINIMUM_LENGTH,
+    PASSWORD_MAXIMUM_LENGTH,
+    PASSWORD_REQUIRED_NUMBER,
+    PASSWORD_REQUIRED_SYMBOL,
+    PASSWORD_REQUIRED_UPPER_ENG,
+    PASSWORD_ALLOW_SYMBOL,
+    SITE_INIT
+}

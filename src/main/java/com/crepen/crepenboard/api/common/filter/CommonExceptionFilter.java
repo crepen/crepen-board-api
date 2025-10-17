@@ -1,21 +1,26 @@
 package com.crepen.crepenboard.api.common.filter;
 
-import com.crepen.crepenboard.api.common.CommonResponse;
-import com.crepen.crepenboard.api.common.exception.ResponseException;
+import com.crepen.crepenboard.api.common.system.model.BaseResponse;
+import com.crepen.crepenboard.api.common.system.model.exception.ResponseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.hibernate.cfg.Environment;
-import org.springframework.http.HttpStatus;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @Component
+@RequiredArgsConstructor
 public class CommonExceptionFilter extends OncePerRequestFilter {
+
+    private final MessageSource messageSource;
+
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
@@ -26,25 +31,39 @@ public class CommonExceptionFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         }
         catch (ServletException ex){
+            System.err.println(ex.getMessage());
             if(ex instanceof ResponseException rex){
-                setErrorResponse(rex.getStatusCode() , response , rex.getErrorCode() , rex.getMessage());
+                errorResponse(rex , request , response);
             }
             else{
-                setErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), response, "UNKNOWN", ex.getMessage());
+                ResponseException rex = ResponseException.UNKNOWN_EXCEPTION;
+                errorResponse(rex , request , response);
             }
         }
         catch (Exception ex){
-            setErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), response, "UNKNOWN", ex.getMessage());
+            System.err.println(ex.getMessage());
+            ResponseException rex = ResponseException.UNKNOWN_EXCEPTION;
+            errorResponse(rex , request , response);
         }
     }
 
+    private void errorResponse(ResponseException rex , HttpServletRequest request , HttpServletResponse response ) throws IOException {
 
-    private void setErrorResponse(int status, HttpServletResponse response,String errorCode ,String message) throws IOException {
-        response.setStatus(status);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+        Locale requestLocale = request.getLocale();
 
-        CommonResponse res = CommonResponse.error(status , errorCode , message);
+        response.setStatus(rex.getStatusCode());
+        response.setContentType("application/json;charset=UTF-8");
+
+
+        String message = messageSource.getMessage(rex.getMessage(), rex.getErrorMessageArgs().toArray(), requestLocale);
+
+
+        BaseResponse res = BaseResponse.error(
+                rex.getStatusCode() ,
+                rex.getErrorCode() ,
+                message
+//                rex.getMessage()
+        );
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonMessage = objectMapper.writeValueAsString(res);
 

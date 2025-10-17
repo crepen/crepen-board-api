@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "jasypt.encryptor.password",
+      "type": "java.lang.String",
+      "description": "Description for jasypt.encryptor.password."
+    },
+    {
+      "name": "jasypt.encryptor.algorithm",
+      "type": "java.lang.String",
+      "description": "Description for jasypt.encryptor.algorithm."
+    },
+    {
+      "name": "jasypt.encryptor.pool-size",
+      "type": "java.lang.String",
+      "description": "Description for jasypt.encryptor.pool-size."
+    }
+  ]
+}
