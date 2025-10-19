@@ -31,19 +31,32 @@ public class CommonExceptionFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         }
         catch (ServletException ex){
-            System.err.println(ex.getMessage());
+
             if(ex instanceof ResponseException rex){
                 errorResponse(rex , request , response);
+
+                System.err.println(
+                        messageSource.getMessage(rex.getMessage() , rex.getErrorMessageArgs().toArray() , Locale.ENGLISH)
+                );
             }
             else{
                 ResponseException rex = ResponseException.UNKNOWN_EXCEPTION;
                 errorResponse(rex , request , response);
+
+                System.err.println(
+                        messageSource.getMessage(ex.getMessage() , rex.getErrorMessageArgs().toArray() , Locale.ENGLISH)
+                );
+                System.err.println(ex.getMessage());
             }
         }
         catch (Exception ex){
-            System.err.println(ex.getMessage());
             ResponseException rex = ResponseException.UNKNOWN_EXCEPTION;
             errorResponse(rex , request , response);
+
+            System.err.println(
+                    messageSource.getMessage(ex.getMessage() , rex.getErrorMessageArgs().toArray() , Locale.ENGLISH)
+            );
+            System.err.println(ex.getMessage());
         }
     }
 

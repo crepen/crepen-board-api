@@ -2,8 +2,7 @@ package com.crepen.crepenboard.api.module.user.service;
 
 import ch.qos.logback.core.util.StringUtil;
 import com.crepen.crepenboard.api.common.system.service.GlobalConfigureService;
-import com.crepen.crepenboard.api.module.config.model.SiteConfigKey;
-import com.crepen.crepenboard.api.module.config.service.SiteConfigService;
+import com.crepen.crepenboard.api.module.admin.config.model.SiteConfigKey;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.regex.Pattern;
@@ -17,17 +16,23 @@ public class UserValidateService {
 
     public boolean isValidId(String id){
 
-        int minLength = Integer.parseInt(
-                globalConfigureService.get(SiteConfigKey.ACCOUNT_ID_MINIMUM_LENGTH.name())
+        int minLength = globalConfigureService.get(
+                SiteConfigKey.ACCOUNT_ID_MINIMUM_LENGTH.name() ,
+                8 ,
+                Integer.class
         );
 
-        int maxLength = Integer.parseInt(
-                globalConfigureService.get(SiteConfigKey.ACCOUNT_ID_MAXIMUM_LENGTH.name())
+
+
+        int maxLength =  globalConfigureService.get(
+                SiteConfigKey.ACCOUNT_ID_MAXIMUM_LENGTH.name() ,
+                16 ,
+                Integer.class
         );
 
-        String allowIdSymbol = globalConfigureService.get(SiteConfigKey.ACCOUNT_ID_ALLOW_SYMBOL.name());
 
-        System.out.println();
+        String allowIdSymbol = globalConfigureService.get(SiteConfigKey.ACCOUNT_ID_ALLOW_SYMBOL.name() , "" );
+
 
         Pattern idPattern = Pattern.compile(String.format("^[\\w%s]{%d,%d}$" , allowIdSymbol, minLength, maxLength));
         return idPattern.matcher(id).matches();

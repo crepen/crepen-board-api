@@ -22,6 +22,9 @@ public class UserScheduler {
     private final UserService userService;
     private  final UserRepository userRepository;
 
+    /**
+     * 삭제 유예 기간이 지난 사용자 제거
+     */
     @Scheduled(cron = "0 0 10 * * *")
     public void terminateUser()  {
 

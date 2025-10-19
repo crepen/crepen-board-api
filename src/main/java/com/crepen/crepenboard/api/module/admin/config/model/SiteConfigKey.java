@@ -1,4 +1,4 @@
-package com.crepen.crepenboard.api.module.config.model;
+package com.crepen.crepenboard.api.module.admin.config.model;
 
 public enum SiteConfigKey {
 
