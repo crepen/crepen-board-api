@@ -1,8 +1,13 @@
 package com.crepen.crepenboard.api.module.user.model.entity;
 
+import com.crepen.crepenboard.api.module.user.model.UserRole;
 import com.crepen.crepenboard.api.module.user.model.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,6 +38,27 @@ public class UserEntity {
 
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false , name = "user_status" , columnDefinition = "VARCHAR(10) DEFAULT 'STABLE'")
+    @Column(nullable = false , name = "user_status" , columnDefinition = "VARCHAR(20) DEFAULT 'STABLE'")
     private UserStatus userStatus;
+
+
+
+
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UserRoleEntity> userRoles;
+
+
+    @Column(name = "create_date" , nullable = false , updatable = false )
+    private OffsetDateTime createDate;
+
+
+    @Column(name = "terminate_date")
+    private OffsetDateTime terminateDate;
+
+
+
+    @PrePersist
+    protected void onCreate() {
+        this.createDate = OffsetDateTime.now(ZoneOffset.UTC);
+    }
 }

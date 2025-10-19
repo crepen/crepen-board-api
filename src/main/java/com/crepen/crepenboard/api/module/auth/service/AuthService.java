@@ -1,6 +1,8 @@
 package com.crepen.crepenboard.api.module.auth.service;
 
 import com.crepen.crepenboard.api.module.auth.model.exception.AuthException;
+import com.crepen.crepenboard.api.module.user.model.UserRole;
+import com.crepen.crepenboard.api.module.user.model.entity.UserRoleEntity;
 import com.crepen.crepenboard.api.module.user.model.exception.UserException;
 import com.crepen.crepenboard.api.module.log.service.LogService;
 import com.crepen.crepenboard.api.module.user.model.entity.UserEntity;
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,6 +45,8 @@ public class AuthService {
         else if(matchUser.get().getUserStatus().equals(UserStatus.BLOCK)){
             throw AuthException.BLOCK_USER;
         }
+
+
 
         logService.addLog(
                 LogCategory.AUTH,

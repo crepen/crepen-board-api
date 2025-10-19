@@ -15,8 +15,12 @@ public class UserRoleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
 
-    @Column(name = "user_uuid" , nullable = false , length = 200)
-    private String userUuid;
+//    @Column(name = "user_uuid" , nullable = false , length = 200)
+//    private String userUuid;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_uuid" , referencedColumnName = "uuid" , nullable = false)
+    private UserEntity user;
 
     @Column(name = "role" , nullable = false , length = 50)
     private String role;

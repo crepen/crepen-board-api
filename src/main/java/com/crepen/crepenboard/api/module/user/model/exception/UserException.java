@@ -21,4 +21,7 @@ public class UserException extends ResponseException {
     public static UserException ADD_USER_INVALID_EMAIL = new UserException(403,  "ADD_USER_INVALID_EMAIL" , "error.validation.email");
     public static UserException ADD_USER_INVALID_PASSWORD = new UserException(403,  "ADD_USER_INVALID_PASSWORD" , "error.validation.password");
     public static UserException ADD_USER_INVALID_USERID = new UserException(403,  "ADD_USER_INVALID_PASSWORD" , "error.validation.userid");
+
+
+    public static UserException TERMINATE_USER_NOT_EXPIRED_GRACE_PERIOD = new UserException(403 , "TERMINATE_USER_NOT_EXPIRED_GRACE_PERIOD" , "error.action.terminate_user.not_expire_grace_period");
 }

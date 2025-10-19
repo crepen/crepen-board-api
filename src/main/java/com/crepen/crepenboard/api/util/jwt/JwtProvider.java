@@ -1,12 +1,14 @@
 package com.crepen.crepenboard.api.util.jwt;
 
 import com.crepen.crepenboard.api.module.user.model.entity.UserEntity;
+import com.crepen.crepenboard.api.module.user.model.entity.UserRoleEntity;
 import com.crepen.crepenboard.api.util.jwt.model.JwtType;
 import com.crepen.crepenboard.api.util.jwt.model.JwtUserPayload;
 import com.crepen.crepenboard.api.module.user.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.Nullable;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,8 +37,10 @@ public class JwtProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
+
+
     // 1. 토큰 생성
-    public String createToken(UserEntity userEntity , JwtType type) {
+    public String createToken(UserEntity userEntity , JwtType type ) {
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + (type == JwtType.ACCESS ? 5*60*1000 : 60*60*1000));
@@ -44,7 +48,8 @@ public class JwtProvider {
         SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
         List<String> roles = new ArrayList<>();
-        roles.add("ROLE_COMMON");
+
+        roles.addAll(userEntity.getUserRoles().stream().map(UserRoleEntity::getRole).toList());
 
         if(type == JwtType.ACCESS) {
             roles.add("ROLE_TOKEN_ACCESS");
@@ -75,7 +80,7 @@ public class JwtProvider {
                 .parseSignedClaims(token)
                 .getPayload();
 
-        Optional<UserEntity> userEntity = userService.getUserByUUID(claims.get("uuid").toString());
+        Optional<UserEntity> userEntity = userService.getUserByUserUuidWithRoles(claims.get("uuid").toString());
 
         JwtUserPayload jwtUserPayload = JwtUserPayload.builder()
                 .type(JwtType.of(claims.get("type").toString()))

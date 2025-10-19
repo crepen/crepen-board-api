@@ -3,9 +3,9 @@ server:
     context-path: /api
 spring:
   datasource:
-    url:
-    username:
-    password:
+    url: ENC(v7PwUyhwOzJlIgkRHmnf26r4dYGFgpkcU5v+zFFhn6hZLLcbZ4Xia5COf7ryvUV4Zpaygy0I/Cr2WBgcB5DFzwnxVN6zX4oGlH0BU1zwcgI=)
+    username: ENC(HxJQ+cWJCzQisUxlOQS8urqWNzAF1s5UDvS0/QGtvUeUMx1T2XFjcti6YD1Ei7Fd)
+    password: ENC(ApiqGKUpsAalgyONJjrBO11kvvM2ibX5pKR41F2wGvrQj1Vs3oqrYoYA1sz/528f)
     driver-class-name: org.mariadb.jdbc.Driver
   application:
     name: crepen-board-api

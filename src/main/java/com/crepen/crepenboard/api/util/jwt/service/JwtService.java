@@ -14,6 +14,8 @@ public class JwtService {
 
     public JwtGroup createJwtGroup(UserEntity userEntity) {
 
+        System.out.println();
+
         String act = jwtProvider.createToken(
                 userEntity,
                 JwtType.ACCESS

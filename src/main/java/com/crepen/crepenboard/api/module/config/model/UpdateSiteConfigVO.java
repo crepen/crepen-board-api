@@ -6,6 +6,7 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 
+/** @deprecated  */
 @Getter
 @Builder
 public class UpdateSiteConfigVO {

@@ -23,38 +23,12 @@ public class SiteConfigService {
         return configInitState.isPresent() && Boolean.parseBoolean(configInitState.get().getConfigValue());
     }
 
-
-    @Transactional(rollbackOn = Exception.class)
-    public void setConfig(UpdateSiteConfigVO configVO){
-
-        List<SiteConfigKey> updatekeyList = new ArrayList<>(configVO.getUpdateList().keySet());
-
-        List<SiteConfigEntity> updateEntityList = new ArrayList<>();
-
-        updatekeyList.forEach(item -> {
-            updateEntityList.add(
-                    SiteConfigEntity.builder()
-                            .configKey(item)
-                            .configValue(configVO.getUpdateList().get(item))
-                            .build()
-            );
-        });
-
-        siteConfigRepository.saveAll(updateEntityList);
+    public List<SiteConfigEntity> getAllProperties(){
+        return siteConfigRepository.findAll();
     }
 
-
-    public List<SiteConfigEntity> getPasswordConfig(){
-
-        return siteConfigRepository.findAllByConfigKeyIn(
-              List.of(
-                      SiteConfigKey.PASSWORD_MAXIMUM_LENGTH,
-                      SiteConfigKey.PASSWORD_MINIMUM_LENGTH,
-                      SiteConfigKey.PASSWORD_REQUIRED_NUMBER,
-                      SiteConfigKey.PASSWORD_REQUIRED_SYMBOL,
-                      SiteConfigKey.PASSWORD_REQUIRED_UPPER_ENG,
-                      SiteConfigKey.PASSWORD_ALLOW_SYMBOL
-              )
-        );
+    @Transactional(rollbackOn = Exception.class)
+    public void setConfig(List<SiteConfigEntity> updateConfigList){
+        siteConfigRepository.saveAll(updateConfigList);
     }
 }

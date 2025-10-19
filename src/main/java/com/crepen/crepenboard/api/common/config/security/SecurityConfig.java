@@ -26,11 +26,14 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(  "/user/add").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/swagger-ui.html" , "/swagger-ui/**" , "/v3/api-docs/**").permitAll()
-                        .anyRequest().hasAuthority("TOKEN_ACCESS")
+                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                        .anyRequest().hasAuthority("ROLE_TOKEN_ACCESS")
                 )
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         // 인증 실패 (401) 시 호출될 핸들러 등록
