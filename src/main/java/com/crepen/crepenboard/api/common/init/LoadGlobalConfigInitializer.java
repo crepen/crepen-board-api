@@ -14,6 +14,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 사이트 설정값 메모리 로드
+ */
 @Component
 @RequiredArgsConstructor
 @Order(2)

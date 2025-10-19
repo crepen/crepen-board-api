@@ -69,6 +69,8 @@ public class UserService {
     }
 
 
+
+
     /**
      * 사용자 생성
      *
@@ -287,7 +289,7 @@ public class UserService {
         matchUser.get().setUserName("-");
         matchUser.get().setUserPassword("-");
         matchUser.get().setUserStatus(UserStatus.DELETE);
-
+        matchUser.get().setTerminateDate(OffsetDateTime.now(ZoneOffset.UTC));
 
 
         userRepository.save(matchUser.get());

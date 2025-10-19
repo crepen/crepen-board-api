@@ -14,6 +14,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 기본 사이트 설정값 입력
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
